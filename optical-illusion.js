@@ -2,8 +2,11 @@ var BigCircle = {   x:width/2,
                     y:height/2, 
                     d:width-10, 
                     r: 0, 
+                    
+                    // Fill AND stroke must be changed to change the color
                     fill: color(255,0,0), 
                     stroke: color(255,0,0), 
+                    
                     strokeWeight: 2};
                     
 BigCircle.r = BigCircle.d/2;
@@ -48,16 +51,21 @@ var drawLines = function() {
 }; // end drawLines
 
 frameRate(speed);
+
+function drawBigCircle() {
+    strokeWeight(BigCircle.strokeWeight);
+    fill(BigCircle.fill);
+    stroke(BigCircle.stroke);
+    ellipse(BigCircle.x,BigCircle.y,BigCircle.d,BigCircle.d);
+}
+
 draw = function() {
     background(255);
     pt_deg = (pt_deg + 1) %360;  // increment point position
     
     // Background circle
-    strokeWeight(BigCircle.strokeWeight);
-    fill(BigCircle.fill);
-    stroke(BigCircle.stroke);
-    ellipse(BigCircle.x,BigCircle.y,BigCircle.d,BigCircle.d);
-
+    drawBigCircle();
+    
     // Show lines if key is pressed
     if(keyIsPressed) {
         drawLines();
@@ -67,7 +75,14 @@ draw = function() {
     //text("1/"+(2*num_lines).toString(),0,20);
     // Points
     drawPoints();
-}; // end draw()
+};  // end draw()
+
+// Changes color of big circle and redraws it
+function changeColor(col) {
+    BigCircle.fill = col;
+    BigCircle.stroke = col;
+    drawBigCircle();
+}
 
 keyPressed = function() {
     switch(keyCode) {
@@ -78,6 +93,12 @@ keyPressed = function() {
         case 75:    // 'K'
         case 107:   // 'k'
             num_lines--;
+            break;
+        case 79:   // 'o'
+            changeColor(color(255,0,0));
+            break;
+        case 80: // 'p'
+            changeColor(color(0,0,255));
             break;
     }
 };
