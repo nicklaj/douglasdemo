@@ -79,5 +79,14 @@ keyPressed = function() {
         case 107:   // 'k'
             num_lines--;
             break;
+        case 74:   // 'J'
+        case 106:   // 'j'
+            BigCircle.d++;
+            
+            break;
+        case 68:    //'d'
+        case 100:   //'D'
+            BigCircle.d--;
+            break;
     }
 };
